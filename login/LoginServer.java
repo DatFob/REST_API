@@ -1,21 +1,14 @@
 package login;
 
 import com.google.gson.Gson;
-import com.sun.net.httpserver.HttpContext;
-import jakarta.servlet.ServletContextEvent;
-import jakarta.servlet.ServletContextListener;
-import org.eclipse.jetty.http.HttpCookie;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.Source;
 import utilities.Config;
 
 import java.io.FileReader;
 
-
 public class LoginServer {
-    public static final int PORT = 8080;
+    public static final int PORT = 8888;
     private static final String configFilename = "config.json";
 
     public static void main(String[] args) {

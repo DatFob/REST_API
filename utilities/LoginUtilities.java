@@ -25,6 +25,7 @@ public class LoginUtilities {
         return sha256hex;
     }
 
+
     /**
      * Generates the URL to make the initial request to the authorize API.
      * @param clientId
