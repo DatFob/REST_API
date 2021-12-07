@@ -1,6 +1,7 @@
 package login;
 
 import com.google.gson.Gson;
+import dataBase.JDBC;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import utilities.Config;
@@ -8,9 +9,8 @@ import utilities.Config;
 import java.io.FileReader;
 
 public class LoginServer {
-    public static final int PORT = 8888;
+    public static final int PORT = 8080;
     private static final String configFilename = "config.json";
-
     public static void main(String[] args) {
         try {
             startup();
@@ -49,6 +49,8 @@ public class LoginServer {
         // handle logout
         context.addServlet(LogoutServlet.class, "/logout");
 
+        //
+        context.addServlet(UserInfoServlet.class,"/user");
         // start it up!
         server.setHandler(context);
         server.start();

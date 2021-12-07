@@ -25,6 +25,7 @@ public class LandingServlet extends HttpServlet {
             // already authed, no need to log in
             resp.getWriter().println(LoginServerConstants.PAGE_HEADER);
             resp.getWriter().println("<h1>You have already been authenticated</h1>");
+            resp.getWriter().println("<p><a href=\"/user\">Account Info</a>");
             resp.getWriter().println(LoginServerConstants.PAGE_FOOTER);
             return;
         }

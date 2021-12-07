@@ -1,5 +1,7 @@
 package login;
 
+import dataBase.DBCPDataSource;
+import dataBase.JDBC;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +13,8 @@ import utilities.HTTPFetcher;
 import utilities.LoginUtilities;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Map;
 
 public class LoginServlet extends HttpServlet {
@@ -56,11 +60,20 @@ public class LoginServlet extends HttpServlet {
             resp.getWriter().println("<h1>Oops, login unsuccessful</h1>");
             resp.getWriter().println(LoginServerConstants.PAGE_FOOTER);
         } else {
+            //Add such user information to database
+            String[] nameSplit = clientInfo.getName().split("\\s+");
+            try(Connection connection = DBCPDataSource.getConnection()) {
+                JDBC.executeInsertUser(connection,nameSplit[0],nameSplit[1],clientInfo.getEmail());
+                JDBC.executeSelectPrintUsers(connection);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             req.getSession().setAttribute(LoginServerConstants.CLIENT_INFO_KEY, clientInfo);
             resp.setStatus(HttpStatus.OK_200);
             resp.getWriter().println(LoginServerConstants.PAGE_HEADER);
             resp.getWriter().println("<h1>Hello, " + clientInfo.getName() + "</h1>");
             resp.getWriter().println("<p><a href=\"/logout\">Signout</a>");
+            resp.getWriter().println("<p><a href=\"/user\">Account Info</a>");
             resp.getWriter().println(LoginServerConstants.PAGE_FOOTER);
 
         }
