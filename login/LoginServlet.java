@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
             //Add such user information to database
             String[] nameSplit = clientInfo.getName().split("\\s+");
             try(Connection connection = DBCPDataSource.getConnection()) {
-                JDBC.executeInsertUser(connection,nameSplit[0],nameSplit[1],clientInfo.getEmail());
+                JDBC.executeInsertUser(connection,nameSplit[1],nameSplit[0],clientInfo.getEmail());
                 JDBC.executeSelectPrintUsers(connection);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -74,6 +74,7 @@ public class LoginServlet extends HttpServlet {
             resp.getWriter().println("<h1>Hello, " + clientInfo.getName() + "</h1>");
             resp.getWriter().println("<p><a href=\"/logout\">Signout</a>");
             resp.getWriter().println("<p><a href=\"/user\">Account Info</a>");
+            resp.getWriter().println("<p><a href=\"/events\">Events</a>");
             resp.getWriter().println(LoginServerConstants.PAGE_FOOTER);
 
         }

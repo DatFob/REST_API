@@ -38,6 +38,28 @@ public class JDBC {
         insertContactStmt.executeUpdate();
     }
 
+    public static void executeInsertEvent(Connection con, String name, Date date, String location, String creator, String creatorEmail, int ticketNum) throws SQLException {
+        String insertContactSql = "INSERT INTO Events (Name, Date, Location, Creator, CreatorEmail, TicketNum) VALUES (?, ?, ?, ?, ?, ?);";
+        PreparedStatement insertContactStmt = con.prepareStatement(insertContactSql);
+        insertContactStmt.setString(1, name);
+        insertContactStmt.setDate(2, date);
+        insertContactStmt.setString(3, location);
+        insertContactStmt.setString(4, creator);
+        insertContactStmt.setString(5, creatorEmail);
+        insertContactStmt.setInt(6, ticketNum);
+        insertContactStmt.executeUpdate();
+    }
+
+    public static void updateUserName(Connection con, String lastName, String firstName,String email) throws SQLException{
+        PreparedStatement stmt = con.prepareStatement("UPDATE Users SET LastName = ?, FirstName = ? WHERE Email = ?;");
+        stmt.setString(1,lastName);
+        stmt.setString(2,firstName);
+        stmt.setString(3,email);
+
+        int recordNum = stmt.executeUpdate();
+        System.out.println(recordNum + " records updated");
+    }
+
     /**
      * A method to demonstrate using a PrepareStatement to execute a database select
      * @param con
@@ -52,6 +74,18 @@ public class JDBC {
             System.out.printf("LastName: %s\n", results.getString("LastName"));
             System.out.printf("FirstName: %s\n", results.getString("FirstName"));
         }
+    }
+
+    /**
+     * A method to demonstrate using a PrepareStatement to execute a database select
+     * @param con
+     * @throws SQLException
+     */
+    public static ResultSet selectUserWithLastname(Connection con, String lastName) throws SQLException {
+        String selectAllContactsSql = "SELECT * FROM Users WHERE LastName=\'"+lastName+"\';";
+        PreparedStatement selectAllContactsStmt = con.prepareStatement(selectAllContactsSql);
+        ResultSet results = selectAllContactsStmt.executeQuery();
+        return results;
     }
 
     public static void executeCreateUserTable(Connection con) throws SQLException {
@@ -72,6 +106,8 @@ public class JDBC {
                 "    Name varchar(255),\n" +
                 "    Date Date,\n" +
                 "    Location varchar(255),\n" +
+                "    Creator varchar(225),\n" +
+                "    CreatorEmail varchar(225),\n" +
                 "    TicketNum int(255),\n" +
                 "    PRIMARY KEY (EventId)\n" +
                 ");";

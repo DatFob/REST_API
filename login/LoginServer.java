@@ -1,9 +1,13 @@
 package login;
 
 import com.google.gson.Gson;
-import dataBase.JDBC;
+import events.CreateEventRespServlet;
+import events.CreateEventServlet;
+import events.EventCreateWelcomeServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import userInfo.ModifyUserServlet;
+import userInfo.UserInfoServlet;
 import utilities.Config;
 
 import java.io.FileReader;
@@ -49,8 +53,15 @@ public class LoginServer {
         // handle logout
         context.addServlet(LogoutServlet.class, "/logout");
 
-        //
+
         context.addServlet(UserInfoServlet.class,"/user");
+
+        //
+        context.addServlet(UserInfoServlet.class,"/eventSearch");
+        context.addServlet(ModifyUserServlet.class,"/modifyUser");
+        context.addServlet(EventCreateWelcomeServlet.class,"/events");
+        context.addServlet(CreateEventServlet.class,"/createEvent");
+        context.addServlet(CreateEventRespServlet.class,"/createEventResp");
         // start it up!
         server.setHandler(context);
         server.start();
