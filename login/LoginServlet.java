@@ -72,9 +72,7 @@ public class LoginServlet extends HttpServlet {
             resp.setStatus(HttpStatus.OK_200);
             resp.getWriter().println(LoginServerConstants.PAGE_HEADER);
             resp.getWriter().println("<h1>Hello, " + clientInfo.getName() + "</h1>");
-            resp.getWriter().println("<p><a href=\"/logout\">Signout</a>");
-            resp.getWriter().println("<p><a href=\"/user\">Account Info</a>");
-            resp.getWriter().println("<p><a href=\"/events\">Events</a>");
+            resp.getWriter().println("<p><a href=\"/home\">Home Page</a>");
             resp.getWriter().println(LoginServerConstants.PAGE_FOOTER);
 
         }

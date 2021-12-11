@@ -21,6 +21,7 @@ public class JDBC {
 
             executeCreateUserTable(con);
             executeCreateEventTable(con);
+            executeCreateOrderTable(con);
             executeShowTables(con);
             System.out.println("*****************");
 
@@ -88,13 +89,55 @@ public class JDBC {
         return results;
     }
 
+    public static ResultSet selectUserOrderHistory(Connection con, int userID) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("SELECT Events.Name, Orders.TicketPurchased from Events \n" +
+                "INNER JOIN Orders ON Orders.EventId = Events.ID\n" +
+                "WHERE Orders.BuyerId = ?;");
+        stmt.setInt(1,userID);
+        ResultSet results = stmt.executeQuery();
+        return results;
+    }
+
+    public static ResultSet selectAllEvents(Connection con) throws SQLException {
+        String selectAllContactsSql = "SELECT Name FROM Events;";
+        PreparedStatement selectAllContactsStmt = con.prepareStatement(selectAllContactsSql);
+        ResultSet results = selectAllContactsStmt.executeQuery();
+        return results;
+    }
+
+    public static int selectEventID(Connection con, String eventName) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("SELECT ID FROM Events WHERE Name =?;");
+        stmt.setString(1,eventName);
+        ResultSet results = stmt.executeQuery();
+        results.next();
+        return results.getInt("ID");
+    }
+
+    public static int selectUserID(Connection con, String userEmail) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("SELECT ID FROM Users WHERE Email =?;");
+        stmt.setString(1,userEmail);
+        ResultSet results = stmt.executeQuery();
+        results.next();
+        return results.getInt("ID");
+    }
+
+    public static void insertPurchase(Connection con, int eventID, int userID, int ticketNum) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO Orders (BuyerId, EventId, TicketPurchased) VALUES (?,?,?);");
+        stmt.setInt(1,eventID);
+        stmt.setInt(2,userID);
+        stmt.setInt(3,ticketNum);
+
+        int recordNum = stmt.executeUpdate();
+        System.out.println(recordNum + " rows inserted");
+    }
+
     public static void executeCreateUserTable(Connection con) throws SQLException {
         String createTable = "CREATE TABLE IF NOT EXISTS Users(\n" +
-                "    UserId int AUTO_INCREMENT,\n" +
+                "    ID int AUTO_INCREMENT,\n" +
                 "    LastName varchar(255),\n" +
                 "    FirstName varchar(255),\n" +
                 "    Email varchar(225) NOT NULL UNIQUE,\n" +
-                "    PRIMARY KEY (UserId)\n" +
+                "    PRIMARY KEY (ID)\n" +
                 ");";
         PreparedStatement statement = con.prepareStatement(createTable);
         statement.execute();
@@ -102,18 +145,33 @@ public class JDBC {
 
     public static void executeCreateEventTable(Connection con) throws SQLException {
         String createTable = "CREATE TABLE IF NOT EXISTS Events(\n" +
-                "    EventId int AUTO_INCREMENT,\n" +
+                "    ID int AUTO_INCREMENT,\n" +
                 "    Name varchar(255),\n" +
                 "    Date Date,\n" +
                 "    Location varchar(255),\n" +
                 "    Creator varchar(225),\n" +
                 "    CreatorEmail varchar(225),\n" +
                 "    TicketNum int(255),\n" +
-                "    PRIMARY KEY (EventId)\n" +
+                "    PRIMARY KEY (ID)\n" +
                 ");";
         PreparedStatement statement = con.prepareStatement(createTable);
         statement.execute();
     }
+
+    public static void executeCreateOrderTable(Connection con) throws SQLException {
+        String createTable = "CREATE TABLE IF NOT EXISTS Orders(\n" +
+                "    OrderId int AUTO_INCREMENT,\n" +
+                "    BuyerId int NOT NULL,\n" +
+                "    EventId int NOT NULL,\n" +
+                "    TicketPurchased int(255) NOT NULL,\n" +
+                "    PRIMARY KEY (OrderId),\n" +
+                "    FOREIGN KEY (BuyerId) REFERENCES Users(ID),\n" +
+                "    FOREIGN KEY (EventId) REFERENCES Events(ID)\n" +
+                ");";
+        PreparedStatement statement = con.prepareStatement(createTable);
+        statement.execute();
+    }
+
 
     public static void executeShowTables(Connection con) throws SQLException {
         String createTable = "SHOW TABLES;";

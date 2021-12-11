@@ -1,9 +1,7 @@
 package login;
 
 import com.google.gson.Gson;
-import events.CreateEventRespServlet;
-import events.CreateEventServlet;
-import events.EventCreateWelcomeServlet;
+import events.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import userInfo.ModifyUserServlet;
@@ -62,6 +60,9 @@ public class LoginServer {
         context.addServlet(EventCreateWelcomeServlet.class,"/events");
         context.addServlet(CreateEventServlet.class,"/createEvent");
         context.addServlet(CreateEventRespServlet.class,"/createEventResp");
+        context.addServlet(HomePageServlet.class,"/home");
+        context.addServlet(EventPurchaseSevlet.class,"/buyTix");
+        context.addServlet(ListEventServlet.class,"/allEvents");
         // start it up!
         server.setHandler(context);
         server.start();
