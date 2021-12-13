@@ -1,6 +1,6 @@
 package dataBase;
 
-/**
+    /**
      * A class to store the properties of the JSON configuration file.
      */
     public class DBConfig {

@@ -1,7 +1,16 @@
 package login;
 
 import com.google.gson.Gson;
-import events.*;
+import events.createEvents.CreateEventRespServlet;
+import events.createEvents.CreateEventServlet;
+import events.createEvents.EventCreateWelcomeServlet;
+import events.details.EventDetailServlet;
+import events.details.ListEventServlet;
+import events.details.SearchLocationServlet;
+import events.details.TweetServlet;
+import events.tickets.EventPurchaseSevlet;
+import events.tickets.TransferTicketRespServlet;
+import events.tickets.TransferTicketServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import userInfo.ModifyUserServlet;
@@ -10,6 +19,9 @@ import utilities.Config;
 
 import java.io.FileReader;
 
+/**
+ * Server application runs on port 8080
+ */
 public class LoginServer {
     public static final int PORT = 8080;
     private static final String configFilename = "config.json";
@@ -43,18 +55,9 @@ public class LoginServer {
         // the default path will direct to a landing page with
         // "Login with Slack" button
         context.addServlet(LandingServlet.class, "/");
-
-        // Once authenticated, Slack will redirect the user
-        // back to /login
         context.addServlet(LoginServlet.class, "/login");
-
-        // handle logout
         context.addServlet(LogoutServlet.class, "/logout");
-
-
         context.addServlet(UserInfoServlet.class,"/user");
-
-        //
         context.addServlet(UserInfoServlet.class,"/eventSearch");
         context.addServlet(ModifyUserServlet.class,"/modifyUser");
         context.addServlet(EventCreateWelcomeServlet.class,"/events");
@@ -63,6 +66,11 @@ public class LoginServer {
         context.addServlet(HomePageServlet.class,"/home");
         context.addServlet(EventPurchaseSevlet.class,"/buyTix");
         context.addServlet(ListEventServlet.class,"/allEvents");
+        context.addServlet(EventDetailServlet.class,"/detail");
+        context.addServlet(TransferTicketServlet.class,"/transfer");
+        context.addServlet(TransferTicketRespServlet.class,"/transferResp");
+        context.addServlet(TweetServlet.class,"/tweet");
+        context.addServlet(SearchLocationServlet.class,"/search");
         // start it up!
         server.setHandler(context);
         server.start();
