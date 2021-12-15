@@ -8,6 +8,9 @@ import java.io.StringReader;
 import java.util.Base64;
 import java.util.Map;
 
+/**
+ * Utility class for Login feature
+ */
 public class LoginUtilities {
 
     // for parsing JSON

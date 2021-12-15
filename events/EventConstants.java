@@ -1,5 +1,8 @@
 package events;
 
+/**
+ * Public class used to store constant strings
+ */
 public class EventConstants {
     public static final String WELCOME_PAGE_HEADER = "<!DOCTYPE html>\n" +
             "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +

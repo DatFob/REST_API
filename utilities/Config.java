@@ -1,5 +1,8 @@
 package utilities;
 
+/**
+ * public class to store slack URI info
+ */
 public class Config {
 
     // These variable names violate Java style guidelines

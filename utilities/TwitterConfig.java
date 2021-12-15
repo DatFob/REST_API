@@ -1,5 +1,9 @@
 package utilities;
 
+
+/**
+ * Twitter class to store twitter information
+ */
 public class TwitterConfig {
     private String access_token;
     private String access_token_secret;

@@ -1,5 +1,9 @@
 package login;
 
+/**
+ * Public class used to store constant strings
+ */
+
 public class LoginServerConstants {
 
     public static final String PAGE_HEADER = "<!DOCTYPE html>\n" +

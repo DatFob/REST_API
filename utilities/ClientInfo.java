@@ -1,5 +1,8 @@
 package utilities;
 
+/**
+ * Public class to store a client's info
+ */
 public class ClientInfo {
 
     private String name;

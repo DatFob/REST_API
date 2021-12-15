@@ -8,6 +8,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
 
+
+/**
+ * public class to perform HTTP requests
+ */
 public class HTTPFetcher {
 
     /**

@@ -30,6 +30,11 @@ public class JDBC {
         }
     }
 
+    /**
+     * A method to insert a new user into Users table
+     * @param con
+     * @throws SQLException
+     */
     public static void executeInsertUser(Connection con, String LastName, String FirstName, String email) throws SQLException {
         String insertContactSql = "INSERT INTO Users (LastName, FirstName,email) VALUES (?, ?,?);";
         PreparedStatement insertContactStmt = con.prepareStatement(insertContactSql);
@@ -38,6 +43,12 @@ public class JDBC {
         insertContactStmt.setString(3, email);
         insertContactStmt.executeUpdate();
     }
+
+    /**
+     * A method to insert a new event into events table
+     * @param con
+     * @throws SQLException
+     */
 
     public static void executeInsertEvent(Connection con, String name, Date date, String location, String creator, String creatorEmail, int ticketNum) throws SQLException {
         String insertContactSql = "INSERT INTO Events (Name, Date, Location, Creator, CreatorEmail, TicketNum) VALUES (?, ?, ?, ?, ?, ?);";
@@ -51,6 +62,12 @@ public class JDBC {
         insertContactStmt.executeUpdate();
     }
 
+    /**
+     * A method to update a user's name based on his/her/their email
+     * @param con
+     * @throws SQLException
+     */
+
     public static void updateUserName(Connection con, String lastName, String firstName,String email) throws SQLException{
         PreparedStatement stmt = con.prepareStatement("UPDATE Users SET LastName = ?, FirstName = ? WHERE Email = ?;");
         stmt.setString(1,lastName);
@@ -60,6 +77,12 @@ public class JDBC {
         int recordNum = stmt.executeUpdate();
         System.out.println(recordNum + " records updated");
     }
+
+    /**
+     * A method to update a event's number of tickets
+     * @param con
+     * @throws SQLException
+     */
 
     public static void updateTicketNum(Connection con, int eventID, int ticketNum) throws SQLException{
         PreparedStatement stmt = con.prepareStatement("UPDATE Events\n" +
@@ -71,6 +94,12 @@ public class JDBC {
         int recordNum = stmt.executeUpdate();
         System.out.println(recordNum + " records updated");
     }
+
+    /**
+     * A method to update an order purchased tickets
+     * @param con
+     * @throws SQLException
+     */
 
     public static void updateTicketNumOrders(Connection con, int eventID,int buyerID, int ticketNum) throws SQLException{
         PreparedStatement stmt = con.prepareStatement("UPDATE Orders\n" +
