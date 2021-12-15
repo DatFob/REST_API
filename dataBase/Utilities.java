@@ -4,6 +4,10 @@ import utilities.Config;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
+/**
+ * Utility class to read data base config and return config object
+ */
 public class Utilities {
 
     public static final String configFileName = "dbConfig.json";

@@ -15,6 +15,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Servlet class
+ * Functionality: Modify a user's information (name)
+ */
 public class ModifyUserServlet extends HttpServlet {
 
     @Override

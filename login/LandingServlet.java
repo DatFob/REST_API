@@ -11,6 +11,11 @@ import utilities.LoginUtilities;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+/**
+ * Servlet class
+ * Functionality: Provide slack login button
+ */
 public class LandingServlet extends HttpServlet {
 
     @Override

@@ -1,6 +1,5 @@
 package userInfo;
 
-import com.mysql.cj.xdevapi.Client;
 import dataBase.DBCPDataSource;
 import dataBase.JDBC;
 import jakarta.servlet.ServletException;
@@ -10,16 +9,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import login.LoginServerConstants;
 import org.eclipse.jetty.http.HttpStatus;
 import utilities.ClientInfo;
-import utilities.Config;
-import utilities.HTTPFetcher;
-import utilities.LoginUtilities;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
+
+/**
+ * Servlet class
+ * Functionality: Display user's information as well as order history
+ */
 public class UserInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

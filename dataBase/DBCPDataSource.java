@@ -4,6 +4,11 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+/**
+ * Database pool class
+ * Established on port 3306
+ */
 public class DBCPDataSource {
 
     // Apache commons connection pool implementation
